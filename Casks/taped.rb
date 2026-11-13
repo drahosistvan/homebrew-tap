@@ -13,16 +13,16 @@ cask "taped" do
 
   url "https://tapedapp.com/downloads/Taped-#{version}-#{arch}.dmg"
   name "Taped"
-  desc "Menubar video archiver for macOS (yt-dlp inside)"
-  homepage "https://tapedapp.com"
+  desc "Menubar video archiver (yt-dlp inside)"
+  homepage "https://tapedapp.com/"
 
   livecheck do
     url "https://tapedapp.com/appcast-#{arch}.xml"
-    strategy :sparkle
+    strategy :sparkle, &:short_version
   end
 
   auto_updates true
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "Taped.app"
   # The `taped` command line (docs/integration-api.md).
@@ -30,10 +30,10 @@ cask "taped" do
 
   zap trash: [
     "~/Library/Application Support/Taped",
-    "~/Library/Preferences/com.tapedapp.app.plist",
     "~/Library/Caches/com.tapedapp.app",
     # Bundle id before 1.x was dev.taped.app; an older install leaves these behind.
-    "~/Library/Preferences/dev.taped.app.plist",
     "~/Library/Caches/dev.taped.app",
+    "~/Library/Preferences/com.tapedapp.app.plist",
+    "~/Library/Preferences/dev.taped.app.plist",
   ]
 end
